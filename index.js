@@ -1,12 +1,19 @@
-const express = require('express');
 const path = require('path');
+const {engine} = require('express-edge');
+const express = require('express');
+
 
 const app = express();
 
+
 app.use(express.static('public'));
 
+app.use(engine);
+app.set('views', `${__dirname}/views`);
+
+
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'pages/index.html'));
+    res.render('index');
 });
 
 app.get('/about', (req, res) => {
