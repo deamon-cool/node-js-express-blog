@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/node-js-blog-database');
+mongoose.connect('mongodb://localhost/node-js-blog-database', {useNewUrlParser: true, useUnifiedTopology: true});
 
 
 app.use(express.static('public'));
