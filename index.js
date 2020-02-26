@@ -30,8 +30,10 @@ app.get('/about', (req, res) => {
     res.render('about');
 });
 
-app.get('/post', (req, res) => {
-    res.render('post');
+app.get('/post/:id', async (req, res) => {
+    const post = await Post.findById(req.params.id);
+
+    res.render('post', {post});
 });
 
 app.get('/contact', (req, res) => {
@@ -45,7 +47,6 @@ app.get('/posts/new', (req, res) => {
 // getting input from user
 app.post('/posts/store', (req, res) => {
     Post.create(req.body, (error, post) => {
-        console.log(error, post);
         res.redirect('/');
     });
 });
