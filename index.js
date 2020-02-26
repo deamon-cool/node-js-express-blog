@@ -3,7 +3,7 @@ const {engine} = require('express-edge');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-
+const Post = require('./database/models/Post');
 
 const app = express();
 
@@ -36,15 +36,16 @@ app.get('/contact', (req, res) => {
     res.render('contact');
 });
 
-// getting input from user
 app.get('/posts/new', (req, res) => {
     res.render('create');
 });
 
-
+// getting input from user
 app.post('/posts/store', (req, res) => {
-    console.log(req.body);
-    res.redirect('/');
+    Post.create(req.body, (error, post) => {
+        console.log(error, post);
+        res.redirect('/');
+    });
 });
 
 
