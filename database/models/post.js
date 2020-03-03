@@ -5,8 +5,13 @@ const mongoose = require('mongoose');
 // structure of documents in that collection
 const PostSchema = new mongoose.Schema({
     title: String,
-    description: String,
-    content: String
+    subtitle: String,
+    content: String,
+    username: String,
+    createdAt: {
+        type: Date,
+        default: new Date()
+    }
 });
 
 const Post = mongoose.model('Post', PostSchema);
