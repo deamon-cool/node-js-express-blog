@@ -4,12 +4,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Post = require('./database/models/Post');
+const fileUpload = require('express-fileupload');
+
 
 const app = express();
 
 
 mongoose.connect('mongodb://localhost/node-js-blog-database', {useNewUrlParser: true, useUnifiedTopology: true});
 
+
+app.use(fileUpload());
 
 app.use(express.static('public'));
 
@@ -46,10 +50,18 @@ app.get('/posts/new', (req, res) => {
 
 // getting input from user and save in databas
 app.post('/posts/store', (req, res) => {
-    Post.create(req.body, (error, post) => {
-        console.log(req.body);
-        res.redirect('/');
+    const {image} = req.files;
+
+    image.mv(path.resolve(__dirname, 'public/posts', image.name), (error) => {
+
+        Post.create(req.body, (error, post) => {
+            console.log(req.body);
+            res.redirect('/');
+        });
+
     });
+
+
 });
 
 
