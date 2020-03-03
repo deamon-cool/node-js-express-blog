@@ -7,6 +7,15 @@ mongoose.connect('mongodb://localhost/test-database-blog', {useNewUrlParser: tru
 //     console.log(err, data);
 // });
 
+let data2 = [];
+
 Post.find({}, (err, data)=>{
-    console.log(err, data);
+    let data1 = data.length;
+    data2 = data;
+    console.log(err, data1);
 });
+
+Post.deleteMany(data2, (err, d) => {
+
+});
+
