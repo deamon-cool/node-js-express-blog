@@ -44,9 +44,10 @@ app.get('/posts/new', (req, res) => {
     res.render('create');
 });
 
-// getting input from user
+// getting input from user and save in databas
 app.post('/posts/store', (req, res) => {
     Post.create(req.body, (error, post) => {
+        console.log(req.body);
         res.redirect('/');
     });
 });
