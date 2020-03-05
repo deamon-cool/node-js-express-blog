@@ -1,10 +1,12 @@
-const path = require('path');
 const {engine} = require('express-edge');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Post = require('./database/models/Post');
 const fileUpload = require('express-fileupload');
+const createPostController = require('./controllers/createPost');
+const homePageController = require('./controllers/homePage');
+const postStoreController = require('./controllers/postStore');
+const getPostController = require('./controllers/getPost');
 
 
 const app = express();
@@ -34,48 +36,14 @@ const validateCreatePostMiddleware = (req, res, next) => {
 app.use('/posts/store', validateCreatePostMiddleware);
 
 
-app.get('/', async (req, res) => {
-    let posts = await Post.find({});
+app.get('/', homePageController);
 
-    res.render('index', {posts});
-});
+app.get('/post/:id', getPostController);
 
-app.get('/about', (req, res) => {
-    res.render('about');
-});
+app.get('/posts/new', createPostController);
 
-app.get('/post/:id', async (req, res) => {
-    const post = await Post.findById(req.params.id);
-
-    res.render('post', {post});
-});
-
-app.get('/contact', (req, res) => {
-    res.render('contact');
-});
-
-app.get('/posts/new', (req, res) => {
-    res.render('create');
-});
-
-// getting input from user and save in databas
-app.post('/posts/store', (req, res) => {
-    const {image} = req.files;
-
-    image.mv(path.resolve(__dirname, 'public/posts', image.name), (error) => {
-
-        Post.create({
-            ...req.body,
-            image: `/posts/${image.name}`
-        }, (error, post) => {
-            console.log(req.body);
-            res.redirect('/');
-        });
-
-    });
-
-
-});
+// getting input from user and save in database
+app.post('/posts/store', postStoreController);
 
 
 app.listen(3000, () => {
