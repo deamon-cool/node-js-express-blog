@@ -29,6 +29,7 @@ const customMiddleware = (req, res, next) => {
 };
 
 app.use(customMiddleware);
+app.use('/posts/store', validateCreatePostMiddleware);
 
 
 app.get('/', async (req, res) => {
