@@ -23,6 +23,13 @@ app.set('views', `${__dirname}/views`);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+const customMiddleware = (req, res, next) => {
+    console.log('I HAVE BEEEN CAALLLED :) ');
+    next();
+};
+
+app.use(customMiddleware);
+
 
 app.get('/', async (req, res) => {
     let posts = await Post.find({});
