@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const createPostController = require('./controllers/createPost');
 const homePageController = require('./controllers/homePage');
-const postStoreController = require('./controllers/postStore');
+const storePostController = require('./controllers/postStore');
 const getPostController = require('./controllers/getPost');
 const createUserController = require('./controllers/createUser');
 
