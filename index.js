@@ -7,6 +7,7 @@ const createPostController = require('./controllers/createPost');
 const homePageController = require('./controllers/homePage');
 const postStoreController = require('./controllers/postStore');
 const getPostController = require('./controllers/getPost');
+const createUserController = require('./controllers/createUser');
 
 
 const app = express();
@@ -38,6 +39,8 @@ app.get('/posts/new', createPostController);
 
 // getting input from user and save in database
 app.post('/posts/store', postStoreController);
+
+app.get('/auth/register', createUserController);
 
 
 app.listen(3000, () => {
