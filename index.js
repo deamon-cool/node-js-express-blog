@@ -42,6 +42,7 @@ app.get('/posts/new', createPostController);
 app.post('/posts/store', storePostController);
 
 app.get('/auth/register', createUserController);
+// '/users/login'     '/'users/registers'       => form actions
 
 // getting input from user registration and save in database
 app.post('/users/registers', storeUserController);
