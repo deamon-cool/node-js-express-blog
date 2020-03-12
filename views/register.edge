@@ -20,6 +20,16 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
 
+          @if(errors.length > 0)
+            <ul class="list-group">
+              @each(error in errors)
+                <li class="list-group-item text-danger">
+                  {{error}}
+                </li>
+              @endeach
+            </ul>
+          @endif
+
           <form action="/users/registers" method="POST" enctype="multipart/form-data">
 
             <div class="control-group">
