@@ -42,23 +42,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+// middlewares
 const storePost = require('./middleware/storePost');
-app.use('/posts/store', storePost);
-
 const auth = require('./middleware/auth');
-app.use('/posts/new', auth);
 
 
 app.get('/', homePageController);
 
 app.get('/post/:id', getPostController);
 
-app.get('/posts/new', createPostController);
+app.get('/posts/new', auth, createPostController);
 
 // getting input from user and save in database
-app.post('/posts/store', storePostController);
+app.post('/posts/store', storePost, storePostController);
 
-// '/users/login'     '/'users/registers'       => form actions
+
+// '/users/login'     '/users/registers'       => form actions
 
 app.get('/auth/login', loginController);
 app.post('/users/login', loginUserController);
