@@ -48,6 +48,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // middlewares
 const storePost = require('./middleware/storePost');
 const auth = require('./middleware/auth');
+const redirectIfAuthenticated = require('./middleware/redirectIfAuthenticated');
 
 
 app.get('/', homePageController);
@@ -62,12 +63,12 @@ app.post('/posts/store', auth, storePost, storePostController);
 
 // '/users/login'     '/users/registers'       => form actions
 
-app.get('/auth/login', loginController);
-app.post('/users/login', loginUserController);
+app.get('/auth/login', redirectIfAuthenticated, loginController);
+app.post('/users/login', redirectIfAuthenticated, loginUserController);
 
-app.get('/auth/register', createUserController);
+app.get('/auth/register', redirectIfAuthenticated, createUserController);
 // getting input from user registration and save in database
-app.post('/users/registers', storeUserController);
+app.post('/users/registers', redirectIfAuthenticated, storeUserController);
 
 
 app.listen(3000, () => {
